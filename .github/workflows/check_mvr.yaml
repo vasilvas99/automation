@@ -44,4 +44,4 @@ jobs:
           username: ${{ secrets.BREVO_LOGIN }}
           password: ${{ secrets.BREVO_PASS }}
           subject: Проверка за глоби от КАТ
-          body: "${{ steps.check-obligations.outputs.CHECK_RESULT }}"
+          body: "${{ env.CHECK_RESULT }}"
