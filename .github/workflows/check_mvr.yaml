@@ -1,0 +1,23 @@
+# cron job that runs every two days and runs the ./mvr/check-obligations.sh bash script
+# from the main branch
+# with the EGN and CAR_NO environment variables set from github secrets
+name: Check MVR obligations
+on:
+  schedule:
+    - cron: '0 0 */2 * *'
+  workflow_dispatch:
+
+env:
+  EGN: ${{ secrets.EGN }}
+  CAR_NO: ${{ secrets.CAR_NO }}
+
+jobs: 
+  check_mvr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+        with:
+          ref: main
+      - name: Run check-obligations.sh
+        run: ./mvr/check-obligations.sh
