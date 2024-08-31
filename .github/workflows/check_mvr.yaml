@@ -24,9 +24,10 @@ jobs:
         run: chmod +x ./mvr/check-obligations.sh
       
       - name: Run check-obligations.sh
+        id: check-obligations
         run: |
           OBLIGATIONS_CHECK_RESULT=$(./mvr/check-obligations.sh)
-          echo "OBLIGATIONS_CHECK_RESULT=$OBLIGATIONS_CHECK_RESULT" >> $GITHUB_ENV
+          echo "OBLIGATIONS_CHECK_RESULT=${OBLIGATIONS_CHECK_RESULT}" >> $GITHUB_OUTPUT
 
       - name: Send Email
         uses: hilarion5/send-mail@v1
@@ -39,4 +40,4 @@ jobs:
           username: ${{ secrets.BREVO_LOGIN }}
           password: ${{ secrets.BREVO_PASS }}
           subject: Проверка за глоби от КАТ
-          body: "${{ env.OBLIGATIONS_CHECK_RESULT }}"
+          body: "${{ steps.check-obligations.outputs.SELECTED_COLOR }}"
