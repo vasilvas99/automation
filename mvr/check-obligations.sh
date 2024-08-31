@@ -28,10 +28,13 @@ fi
 
 obligations_empty=$(echo "$response" | jq 'all(.obligationsData[]; .obligations | length == 0)')
 
+echo "Проверка за глоби в КАТ за ${CAR_NO} на $(date +'%Y-%m-%d %H:%M:%S')"
 if [ "$obligations_empty" == "true" ]; then
-    echo "no obligations"
+    echo "Проверката за глоби в КАТ е успешна. Няма намерени глоби."
     exit 0
 else
-    echo "obligations"
+    echo "Проверката за глоби в КАТ е успешна. Има намерени глоби:"
+    echo "$response" | jq -r '.obligationsData[].obligations[]'
+    echo "За повече информация: https://e-uslugi.mvr.bg/services/obligations"
     exit 0
 fi

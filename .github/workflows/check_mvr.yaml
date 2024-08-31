@@ -34,8 +34,8 @@ jobs:
           smtp-server: ${{ secrets.BREVO_SMTP }}
           smtp-port:  ${{ secrets.BREVO_PORT }}
           smtp-secure: false
-          from-email: ivanovvasil99@gmail.com
-          to-email: ivanovvasil99@gmail.com
+          from-email: ${{ secrets.OWN_EMAIL }}
+          to-email: ${{ secrets.OWN_EMAIL }}
           username: ${{ secrets.BREVO_LOGIN }}
           password: ${{ secrets.BREVO_PASS }}
           subject: Проверка за глоби от КАТ
