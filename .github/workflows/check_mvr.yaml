@@ -27,7 +27,7 @@ jobs:
         id: check-obligations
         run: |
           OBLIGATIONS_CHECK_RESULT=$(./mvr/check-obligations.sh)
-          echo "OBLIGATIONS_CHECK_RESULT=${OBLIGATIONS_CHECK_RESULT}" >> $GITHUB_OUTPUT
+          echo "OBLIGATIONS_CHECK_RESULT=${OBLIGATIONS_CHECK_RESULT}<<EOF" >> $GITHUB_OUTPUT
 
       - name: Send Email
         uses: hilarion5/send-mail@v1
