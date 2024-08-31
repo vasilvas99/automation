@@ -19,7 +19,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: master
-      -name: Set permissons:
+      -name: Set permissons
         run: chmod +x ./mvr/check-obligations.sh
       - name: Run check-obligations.sh
         run: ./mvr/check-obligations.sh
