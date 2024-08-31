@@ -23,3 +23,15 @@ jobs:
         run: chmod +x ./mvr/check-obligations.sh
       - name: Run check-obligations.sh
         run: ./mvr/check-obligations.sh
+      - name: Send Email
+        uses: hilarion5/send-mail@v1
+        with:
+          smtp-server: ${{ secrets.BREVO_SMTP }}
+          smtp-port:  ${{ secrets.BREVO_PORT }}
+          smtp-secure: false
+          from-email: ivanovvasil99@gmail.com
+          to-email: ivanovvasil99@gmail.com
+          username: ${{ secrets.BREVO_LOGIN }}
+          password: ${{ secrets.BREVO_PASS }}
+          subject: Test Email
+          body: This is a test email sent from GitHub Actions.
