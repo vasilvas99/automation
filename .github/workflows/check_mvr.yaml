@@ -22,7 +22,7 @@ jobs:
       - name: Set permissons
         run: chmod +x ./mvr/check-obligations.sh
       - name: Run check-obligations.sh
-        run: ./mvr/check-obligations.sh
+        run: echo "::set-output name=OBLIGATIONS_CHECK_RESULT::$(./mvr/check-obligations.sh)"
         id: obligations
       - name: Send Email
         uses: hilarion5/send-mail@v1
@@ -35,4 +35,4 @@ jobs:
           username: ${{ secrets.BREVO_LOGIN }}
           password: ${{ secrets.BREVO_PASS }}
           subject: Ъпдейт
-          body: ${{ steps.obligations.outputs.stdout }}
+          body: "${{ steps.obligations.outputs.OBLIGATIONS_CHECK_RESULT }}"
