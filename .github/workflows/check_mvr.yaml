@@ -19,11 +19,15 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: master
+      
       - name: Set permissons
         run: chmod +x ./mvr/check-obligations.sh
+      
       - name: Run check-obligations.sh
-        run: echo "::set-output name=OBLIGATIONS_CHECK_RESULT::$(./mvr/check-obligations.sh)"
-        id: obligations
+        run: |
+          OBLIGATIONS_CHECK_RESULT=$(./mvr/check-obligations.sh)
+          echo "OBLIGATIONS_CHECK_RESULT=$OBLIGATIONS_CHECK_RESULT" >> $GITHUB_ENV
+
       - name: Send Email
         uses: hilarion5/send-mail@v1
         with:
@@ -34,5 +38,5 @@ jobs:
           to-email: ivanovvasil99@gmail.com
           username: ${{ secrets.BREVO_LOGIN }}
           password: ${{ secrets.BREVO_PASS }}
-          subject: Ъпдейт
-          body: "${{ steps.obligations.outputs.OBLIGATIONS_CHECK_RESULT }}"
+          subject: Проверка за глоби от КАТ
+          body: "${{ env.OBLIGATIONS_CHECK_RESULT }}"
