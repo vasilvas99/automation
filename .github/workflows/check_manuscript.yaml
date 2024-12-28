@@ -10,7 +10,7 @@ env:
   BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
   SENDER_NAME: ${{ secrets.SENDER_NAME }}
   SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}
-  RECEIVERS: ${{ secrets.RECEIVER_EMAIL }}
+  RECEIVERS: ${{ secrets.RECEIVERS }}
 
 jobs: 
   check_manuscript:
@@ -21,7 +21,7 @@ jobs:
         with:
           ref: master
       
-      - name: Install Python 3.10 with Pip
+      - name: Install Python 3.13 with Pip
         uses: actions/setup-python@v2
         with:
           python-version: '3.13'
