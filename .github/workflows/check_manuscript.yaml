@@ -1,4 +1,4 @@
-name: Check MVR obligations
+name: Check Manuscript Status
 on:
   schedule:
     - cron: '0 0 * * 1,4'
@@ -13,7 +13,7 @@ env:
   RECEIVERS: ${{ secrets.RECEIVER_EMAIL }}
 
 jobs: 
-  check_mvr:
+  check_manuscript:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
@@ -33,8 +33,8 @@ jobs:
       - name: Setup Dependencies
         id: check-obligations
         run: |
-        cd ./manuscript_checker
-        poetry install
+          cd ./manuscript_checker
+          poetry install
 
       - name: Run Manuscript Checker
         run: |
