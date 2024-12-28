@@ -38,4 +38,4 @@ jobs:
 
       - name: Run Manuscript Checker
         run: |
-          poetry run python -m manuscript_checker
+          poetry run python -m manuscript_checker/manuscript_checker
