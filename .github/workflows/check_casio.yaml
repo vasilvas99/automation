@@ -1,0 +1,42 @@
+name: Check Manuscript Status
+on:
+  schedule:
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+
+env:
+  MONGO_CONN_STRING: ${{ secrets.MONGO_CONN_STRING }}
+  MANUSCRIPT_ID: ${{ secrets.MANUSCRIPT_ID }}
+  BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
+  SENDER_NAME: ${{ secrets.SENDER_NAME }}
+  SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}
+  RECEIVERS: ${{ secrets.RECEIVERS }}
+
+jobs: 
+  check_casio:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          ref: master
+      
+      - name: Install Python 3.13 with Pip
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.13'
+        
+      - name: Install Poetry
+        run: |
+          pip install poetry
+      
+      - name: Setup Dependencies
+        id: check-obligations
+        run: |
+          cd ./casio_checker
+          poetry install
+
+      - name: Run Casio Price Checker
+        run: |
+          cd ./casio_checker
+          poetry run python -m casio_checker
