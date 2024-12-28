@@ -1,4 +1,4 @@
-name: Check Manuscript Status
+name: Check Casio Status
 on:
   schedule:
     - cron: '0 */6 * * *'
