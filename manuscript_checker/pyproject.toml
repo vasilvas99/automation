@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "manuscript-checker"
+version = "0.1.0"
+description = ""
+authors = ["Vasil Ivanov <ivanovvasil99@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+pydantic = "^2.10.4"
+requests = "^2.32.3"
+pymongo = {extras = ["srv"], version = "^4.10.1"}
+brevo-python = "^1.1.2"
+python-dotenv = "^1.0.1"
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^24.10.0"
+isort = "^5.13.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

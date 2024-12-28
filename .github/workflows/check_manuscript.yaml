@@ -1,0 +1,41 @@
+name: Check MVR obligations
+on:
+  schedule:
+    - cron: '0 0 * * 1,4'
+  workflow_dispatch:
+
+env:
+  MONGO_CONN_STRING: ${{ secrets.MONGO_CONN_STRING }}
+  MANUSCRIPT_ID: ${{ secrets.MANUSCRIPT_ID }}
+  BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
+  SENDER_NAME: ${{ secrets.SENDER_NAME }}
+  SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}
+  RECEIVERS: ${{ secrets.RECEIVER_EMAIL }}
+
+jobs: 
+  check_mvr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          ref: master
+      
+      - name: Install Python 3.10 with Pip
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.10'
+        
+      - name: Install Poetry
+        run: |
+          pip install poetry
+      
+      - name: Setup Dependencies
+        id: check-obligations
+        run: |
+        cd ./manuscript_checker
+        poetry install
+
+      - name: Run Manuscript Checker
+        run: |
+          poetry run python -m manuscript_checker
